@@ -28,7 +28,7 @@ export default function Home() {
     <section className="w-full">
       <Header />
       <section className="flex flex-col justify-center items-center px-4 mx:px-0 max-w-[750px] mx-auto mt-20 md:mt-32">
-        <h1 className="text-3xl md:text-[56px] text-z-navyblue tracking-tighter font-z-openSauceSans text-center leading-[110%]">
+        <h1 className="text-4xl md:text-[56px] text-z-navyblue tracking-tighter font-z-openSauceSans text-center leading-[110%]">
           From Discovery to Discounts. Full-Circle Value
         </h1>
         <p className="max-w-[450px] mx-auto mt-4 font-z-epilogue text-base text-center tracking-tight">
