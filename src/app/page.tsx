@@ -1,6 +1,13 @@
 "use client";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
+import {
+  animate,
+  cubicBezier,
+  motion,
+  useMotionValue,
+  useTransform,
+} from "motion/react";
 
 import Header from "@/components/common/Header";
 import AppButton from "@/components/ui/AppButton";
@@ -10,6 +17,7 @@ import ThemeLayout from "@/components/common/layouts/ThemeLayout";
 
 import WaitlistUser from "@/images/waitlistUsers.png";
 import { FeatureProps } from "@/types";
+import { useEffect } from "react";
 
 export default function Home() {
   const {
@@ -24,13 +32,51 @@ export default function Home() {
     return;
   };
 
+  const text = "From Discovery to Discounts. Full-Circle Value";
+  const letters = text.split(" ");
+
+  const container = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const child = {
+    hidden: { opacity: 0, y: `1em` }, 
+    visible: {
+      opacity: 1,
+      y: `0em`,
+      transition: {
+        duration: .8,
+        ease: cubicBezier(0.25, 0.1, 0.25, 1),
+      },
+    },
+  };
+
   return (
     <section className="w-full">
       <Header />
       <section className="flex flex-col justify-center items-center px-4 mx:px-0 max-w-[750px] mx-auto mt-20 md:mt-32">
-        <h1 className="text-4xl md:text-[56px] text-z-navyblue tracking-tighter font-z-openSauceSans text-center leading-[110%]">
-          From Discovery to Discounts. Full-Circle Value
-        </h1>
+        <motion.h1
+          variants={container}
+          initial="hidden"
+          animate="visible"
+          className="text-4xl space-x-2 md:text-[56px] text-z-navyblue tracking-tighter font-z-openSauceSans text-center leading-[110%]"
+        >
+          {letters.map((char, i) => (
+            <motion.span
+              key={i}
+              variants={child}
+              style={{ display: "inline-block" }}
+            >
+              {char === " " ? "\u00A0" : char}
+            </motion.span>
+          ))}
+        </motion.h1>
         <p className="max-w-[450px] mx-auto mt-4 font-z-epilogue text-base text-center tracking-tight">
           Edinburgh’s student discovery hub, where discovering places and
           inviting friends gives free lunches.
@@ -81,11 +127,18 @@ export default function Home() {
 }
 
 const SocialProof = () => {
+  const count = useMotionValue(0);
+  const rounded = useTransform(() => Math.round(count.get()));
+
+  useEffect(() => {
+    const controls = animate(count, 20, { duration: 5 });
+    return () => controls.stop();
+  }, []);
   return (
     <div className="flex items-center gap-1 mt-6">
       <Image src={WaitlistUser} height={24} width={48} alt="waitlist users" />
       <span className="text-xs font-z-epilogue text-z-navyblue font-normal">
-        20k+ people already on the waitlist
+        <motion.span>{rounded}</motion.span>k+ people already on the waitlist
       </span>
     </div>
   );
