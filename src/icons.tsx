@@ -1,4 +1,4 @@
-export const EyeCloseIcon = (props?: { width?: any; height?: any }) => {
+export const EyeCloseIcon = (props?: { width?: number; height?: number }) => {
   return (
     <svg
       width={props?.width ?? 20}
@@ -15,7 +15,7 @@ export const EyeCloseIcon = (props?: { width?: any; height?: any }) => {
   );
 };
 
-export const EyeOpenIcon = (props?: { width?: any; height?: any }) => {
+export const EyeOpenIcon = (props?: { width?: number; height?: number }) => {
   return (
     <svg
       width={props?.width ?? 20}

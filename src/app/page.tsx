@@ -9,6 +9,7 @@ import { featuresData } from "@/utils";
 import ThemeLayout from "@/components/common/layouts/ThemeLayout";
 
 import WaitlistUser from "@/images/waitlistUsers.png";
+import { FeatureProps } from "@/types";
 
 export default function Home() {
   const {

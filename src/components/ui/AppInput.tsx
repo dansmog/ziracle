@@ -155,4 +155,6 @@ const AppInput = React.forwardRef(
   }
 );
 
+AppInput.displayName = 'AppInput';
+
 export default AppInput;

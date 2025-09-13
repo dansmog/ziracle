@@ -1,4 +1,3 @@
-import AppButton from "../ui/AppButton";
 import ThemeLayout from "./layouts/ThemeLayout";
 
 export default function Header() {

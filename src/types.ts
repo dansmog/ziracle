@@ -1,4 +1,4 @@
-interface FeatureProps {
+export interface FeatureProps {
   title: string;
   body: string;
   img: string;
