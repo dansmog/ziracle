@@ -1,15 +1,22 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Epilogue, Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const epilogueSans = Epilogue({
+  variable: "--font-epilogue",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
+});
+
+const openSauceSans = localFont({
+  src: "../fonts/OpenSauceSans-Medium.ttf",
+  display: "swap",
+  variable: "--font-openSauceSans",
 });
 
 export const metadata: Metadata = {
@@ -25,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${inter.variable} ${epilogueSans.variable} ${openSauceSans.variable} antialiased`}
       >
         {children}
       </body>
