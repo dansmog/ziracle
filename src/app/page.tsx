@@ -1,4 +1,5 @@
 "use client";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
 import {
@@ -12,12 +13,12 @@ import {
 import Header from "@/components/common/Header";
 import AppButton from "@/components/ui/AppButton";
 import AppInput from "@/components/ui/AppInput";
-import { featuresData } from "@/utils";
 import ThemeLayout from "@/components/common/layouts/ThemeLayout";
 
 import WaitlistUser from "@/images/waitlistUsers.png";
+
 import { FeatureProps } from "@/types";
-import { useEffect } from "react";
+import { featuresData } from "@/utils";
 
 export default function Home() {
   const {
@@ -28,11 +29,7 @@ export default function Home() {
     mode: "onSubmit",
   });
 
-  const onSubmit = () => {
-    return;
-  };
-
-  const text = "From Discovery to Discounts. Full-Circle Value";
+  const text = "Edinburgh’s invite-only student discovery hub.";
   const letters = text.split(" ");
 
   const container = {
@@ -46,21 +43,26 @@ export default function Home() {
   };
 
   const child = {
-    hidden: { opacity: 0, y: `1em` }, 
+    hidden: { opacity: 0, y: `1em` },
     visible: {
       opacity: 1,
       y: `0em`,
       transition: {
-        duration: .8,
+        duration: 0.8,
         ease: cubicBezier(0.25, 0.1, 0.25, 1),
       },
     },
   };
 
+  const onSubmit = () => {
+    return;
+  };
+
+
   return (
-    <section className="w-full">
+    <section className="w-full min-h-screen flex flex-col">
       <Header />
-      <section className="flex flex-col justify-center items-center px-4 mx:px-0 max-w-[750px] mx-auto mt-20 md:mt-32">
+      <section className="flex flex-col justify-center items-center px-4 mx:px-0 max-w-[750px] mx-auto mt-20 md:mt-24">
         <motion.h1
           variants={container}
           initial="hidden"
@@ -78,8 +80,8 @@ export default function Home() {
           ))}
         </motion.h1>
         <p className="max-w-[450px] mx-auto mt-4 font-z-epilogue text-base text-center tracking-tight">
-          Edinburgh’s student discovery hub, where discovering places and
-          inviting friends gives free lunches.
+          Find the best spots. Unlock student discounts. Earn points — and free
+          lunches — by inviting friends.
         </p>
 
         <div className="mt-6 w-full md:max-w-[440px] flex flex-col md:flex-row items-center gap-2 mx-auto">
@@ -103,7 +105,7 @@ export default function Home() {
             />
           </div>
         </div>
-        <SocialProof />
+        {/* <SocialProof /> */}
       </section>
       <ThemeLayout>
         <div className="grid grid-cols-1 gap-0 md:grid-cols-3 md:gap-10 pt-16">
@@ -122,6 +124,10 @@ export default function Home() {
           })}
         </div>
       </ThemeLayout>
+
+      <footer className="w-full">
+        <img src="/Ziracle_Asset_Light.svg" className="w-full object-cover" />
+      </footer>
     </section>
   );
 }
