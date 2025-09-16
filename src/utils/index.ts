@@ -24,6 +24,10 @@ export const WHITELIST = [
   "juwonanthony@gmail.com",
   "coursebuying@gmail.com",
   "juwonanthony+1@gmail.com",
+  "hamishalawson@gmail.com",
+  "hamish@ziracle.com",
+  "janethomelawson@gmail.com",
+  "jan-home@hotmail.com",
 ];
 
 export const isAllowedDomain = (email: string) => {

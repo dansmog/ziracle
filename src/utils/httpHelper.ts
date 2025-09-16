@@ -1,9 +1,13 @@
 type Method = "GET" | "POST" | "PUT" | "DELETE";
-type Body = Record<string, any> | FormData | null;
+type Body = Record<string, unknown> | FormData | null;
 
 export const apiRoutes = {
   createWaitlist: "/api/users/waitlist/create",
 };
+
+interface CustomError extends Error {
+  status?: number;
+}
 
 interface SuccessResponse {
   success: boolean;
@@ -38,7 +42,9 @@ export async function fetcher<T>(
 
   if (!response.ok) {
     // If the response is not OK (e.g., 4xx or 5xx), throw an error
-    const error: any = new Error(data.message || "An unknown error occurred.");
+    const error: CustomError = new Error(
+      data.message || "An unknown error occurred."
+    );
     error.status = response.status;
     throw error;
   }

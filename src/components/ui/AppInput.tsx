@@ -28,7 +28,7 @@ interface IAppInput {
 
 const input = cva(
   [
-    "font-z-inter text-base text-z-blackcharcoal placeholder:text-grey-400 border-[.5px] outline:none rounded-xl focus:outline-none transition-all durations-[600ms] ease-in-out",
+    "font-z-inter text-sm text-z-blackcharcoal placeholder:text-grey-400 border-[.5px] outline:none rounded-xl focus:outline-none transition-all durations-[600ms] ease-in-out",
   ],
   {
     variants: {
@@ -95,7 +95,7 @@ const AppInput = React.forwardRef(
 
     return (
       <div className="flex flex-col w-full relative">
-        <div className="text-sm mb-1 font-gt-medium flex gap-1 items-center">
+        <div className="text-sm mb-1 font-z-openSauceSans flex gap-1 items-center">
           {label?.length && (
             <label htmlFor={name} className="text-grey-700">
               {label} {required ? <span className="text-main">*</span> : null}

@@ -30,7 +30,7 @@ export default function Home() {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm({
+  } = useForm<dataProps>({
     mode: "onSubmit",
   });
 
@@ -59,8 +59,11 @@ export default function Home() {
     },
   };
 
+  type dataProps = {
+    email: string;
+  };
   //this would be switch for tanstack-query
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: dataProps) => {
     //check email if it's part of whitelist or accepted email
     if (WHITELIST.includes(data?.email) || isAllowedDomain(data?.email)) {
       try {

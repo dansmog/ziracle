@@ -5,12 +5,14 @@ export async function getUserByEmail(email: string) {
   try {
     const { data, error } = await supabase
       .from("users")
-      .select("email, referrer_code")
+      .select("email, referral_code")
       .eq("email", email);
 
     if (error) {
       return { success: false, message: error.message };
     }
+
+    console.log("the data from supabase", data)
 
     return { success: true, data };
   } catch (err) {
