@@ -20,7 +20,7 @@ import WaitlistUser from "@/images/waitlistUsers.png";
 
 import { FeatureProps } from "@/types";
 import { featuresData, isAllowedDomain, WHITELIST } from "@/utils";
-import { apiRoutes, createWaitlist } from "@/utils/httpHelper";
+import { apiRoutes, createWaitlist, CustomError } from "@/utils/httpHelper";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
@@ -76,10 +76,14 @@ export default function Home() {
         setIsLoading(false);
         toast.success(result?.message);
         console.log({ result });
-      } catch (error: any) {
+      } catch (error: unknown) {
         setIsLoading(false);
         setIsError(true);
-        toast.error(error.message);
+        if (error instanceof Error) {
+          toast.error(error.message);
+        } else {
+          toast.error("An unknown error occurred.");
+        }
       }
     } else {
       toast.error("We are sorry, we are exclusive to students alone");
