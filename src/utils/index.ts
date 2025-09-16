@@ -18,3 +18,18 @@ export const featuresData = [
     body: "Invite friends and make extra income.",
   },
 ];
+
+export const ALLOWED_EMAILS = ["ac.uk"];
+export const WHITELIST = [
+  "juwonanthony@gmail.com",
+  "coursebuying@gmail.com",
+  "juwonanthony+1@gmail.com",
+];
+
+export const isAllowedDomain = (email: string) => {
+  return ALLOWED_EMAILS.some((domain) => email.endsWith(domain));
+};
+
+export const ALLOWED_EMAILS_BREVO_LIST_ID = {
+  ac_uk: 5,
+};

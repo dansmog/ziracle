@@ -55,7 +55,7 @@ export default function Header() {
 
           <a
             href="#early-access"
-            className="flex w-fit items-center justify-center text-white h-10 px-4 rounded-full font-z-epilogue font-medium text-sm bg-z-purple"
+            className="flex w-fit items-center justify-center text-white h-10 px-4 rounded-full font-z-epilogue font-medium text-xs md:text-sm bg-z-purple"
           >
             Get early access
           </a>

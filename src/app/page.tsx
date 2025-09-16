@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
 import {
@@ -9,6 +9,7 @@ import {
   useMotionValue,
   useTransform,
 } from "motion/react";
+import { Toaster, toast } from "sonner";
 
 import Header from "@/components/common/Header";
 import AppButton from "@/components/ui/AppButton";
@@ -18,9 +19,13 @@ import ThemeLayout from "@/components/common/layouts/ThemeLayout";
 import WaitlistUser from "@/images/waitlistUsers.png";
 
 import { FeatureProps } from "@/types";
-import { featuresData } from "@/utils";
+import { featuresData, isAllowedDomain, WHITELIST } from "@/utils";
+import { apiRoutes, createWaitlist } from "@/utils/httpHelper";
 
 export default function Home() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+
   const {
     handleSubmit,
     register,
@@ -54,20 +59,40 @@ export default function Home() {
     },
   };
 
-  const onSubmit = () => {
-    return;
+  //this would be switch for tanstack-query
+  const onSubmit = async (data: any) => {
+    //check email if it's part of whitelist or accepted email
+    if (WHITELIST.includes(data?.email) || isAllowedDomain(data?.email)) {
+      try {
+        setIsLoading(true);
+        const result = await createWaitlist(
+          apiRoutes.createWaitlist,
+          "POST",
+          data
+        );
+        setIsLoading(false);
+        toast.success(result?.message);
+        console.log({ result });
+      } catch (error: any) {
+        setIsLoading(false);
+        setIsError(true);
+        toast.error(error.message);
+      }
+    } else {
+      toast.error("We are sorry, we are exclusive to students alone");
+    }
   };
-
 
   return (
     <section className="w-full min-h-screen flex flex-col">
       <Header />
-      <section className="flex flex-col justify-center items-center px-4 mx:px-0 max-w-[750px] mx-auto mt-20 md:mt-24">
+      <Toaster richColors position="top-center" />
+      <section className="flex flex-col justify-center items-center px-4 mx:px-0 max-w-[750px] mx-auto mt-14 md:mt-24">
         <motion.h1
           variants={container}
           initial="hidden"
           animate="visible"
-          className="text-4xl space-x-2 md:text-[56px] text-z-navyblue tracking-tighter font-z-openSauceSans text-center leading-[110%]"
+          className="text-3xl space-x-2 md:text-[56px] text-z-navyblue tracking-tighter font-z-openSauceSans text-center leading-[110%]"
         >
           {letters.map((char, i) => (
             <motion.span
@@ -88,7 +113,7 @@ export default function Home() {
           <div className="w-full md:max-w-[245px]">
             <AppInput
               type="email"
-              placeholder="Jessica@email.com"
+              placeholder="ac.uk email required"
               register={register}
               errors={errors}
               name="email"
@@ -100,6 +125,7 @@ export default function Home() {
               intent="secondary"
               title="Get early access"
               size="small"
+              isLoading={isLoading}
               fullWidth
               onClick={handleSubmit(onSubmit)}
             />
@@ -108,7 +134,7 @@ export default function Home() {
         {/* <SocialProof /> */}
       </section>
       <ThemeLayout>
-        <div className="grid grid-cols-1 gap-0 md:grid-cols-3 md:gap-10 pt-16">
+        <div className="grid grid-cols-1 gap-0 md:grid-cols-3 md:gap-10 pt-10 md:pt-16">
           {featuresData?.map((item) => {
             return (
               <FeatureCard
@@ -179,7 +205,7 @@ const FeatureCard = ({
         {title}
       </h3>
 
-      <p className="text-z-navyblue whitespace-nowrap md:whitespace-normal lg:whitespace-nowrap xl:whitespace-nowrap tracking-tight font-z-epilogue font-normal text-sm leading-relaxed">
+      <p className="text-z-navyblue whitespace-wrap md:whitespace-normal lg:whitespace-nowrap xl:whitespace-nowrap tracking-tight font-z-epilogue font-normal text-sm leading-relaxed">
         {body}
       </p>
     </div>

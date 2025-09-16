@@ -28,7 +28,7 @@ interface IAppInput {
 
 const input = cva(
   [
-    "font-z-inter text-base text-z-blackcharcoal placeholder:text-z-blackcharcoal border-[.5px] outline:none rounded-xl focus:outline-none transition-all durations-[600ms] ease-in-out",
+    "font-z-inter text-base text-z-blackcharcoal placeholder:text-grey-400 border-[.5px] outline:none rounded-xl focus:outline-none transition-all durations-[600ms] ease-in-out",
   ],
   {
     variants: {
