@@ -23,6 +23,8 @@ export const ALLOWED_EMAILS = ["ac.uk"];
 export const WHITELIST = [
   "juwonanthony@gmail.com",
   "coursebuying@gmail.com",
+  "coursebuying+10@gmail.com",
+  "coursebuying+20@gmail.com",
   "juwonanthony+1@gmail.com",
   "juwonanthony+2@gmail.com",
   "juwonanthony+3@gmail.com",
