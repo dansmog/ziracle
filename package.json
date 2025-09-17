@@ -13,6 +13,7 @@
     "@supabase/supabase-js": "^2.57.4",
     "axios": "^1.12.1",
     "class-variance-authority": "^0.7.1",
+    "dayjs": "^1.11.18",
     "motion": "^12.23.12",
     "next": "15.5.3",
     "react": "19.1.0",

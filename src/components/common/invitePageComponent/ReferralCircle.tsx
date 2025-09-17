@@ -14,7 +14,13 @@ const tabs = ["your circle", "top 20"];
 
 const top3 = [Top1, Top2, Top3];
 
-export default function ReferralCircle() {
+interface circleProps {
+  inner_circle: number;
+  mid_circle: number;
+  outer_circle: number;
+}
+
+export default function ReferralCircle({ circle }: { circle: circleProps }) {
   const [activeTab, setActiveTab] = useState(tabs[0]);
 
   console.log({ activeTab });
@@ -205,15 +211,15 @@ export default function ReferralCircle() {
               <div className="bg-[#FDFD80] w-[149px] h-[149px] rounded-full flex justify-center items-center">
                 <div className="bg-[#6A40D5] w-[70px] h-[70px] rounded-full">
                   <span className="absolute bottom-[96px] right-0 md:right-[-5px] bg-[#F5F5F596] border-[.5px] border-[#E5E5E5] rounded-full p-1 text-[#1F0E5B] font-z-inter text-[11px] md:text-sm">
-                    50 Connections
+                    {circle?.inner_circle} Connections
                   </span>
                 </div>
                 <span className="absolute bottom-[60px] right-[-20px] md:right-[-40px] bg-[#F5F5F596] border-[.5px] border-[#E5E5E5] rounded-full p-1 text-[#1F0E5B] font-z-inter text-[11px] md:text-sm">
-                  12 Connections
+                  {circle?.mid_circle} Connections
                 </span>
               </div>
               <span className="absolute bottom-5 right-[-30px] md:right-[-50px] bg-[#F5F5F596] border-[.5px] border-[#E5E5E5] rounded-full p-1 text-[#1F0E5B] font-z-inter text-[11px] md:text-sm">
-                3 Connections
+                {circle?.outer_circle} Connections
               </span>
             </div>
           </div>

@@ -24,6 +24,7 @@ export const WHITELIST = [
   "juwonanthony@gmail.com",
   "coursebuying@gmail.com",
   "juwonanthony+1@gmail.com",
+  "coursebuying+1@gmail.com",
   "hamishalawson@gmail.com",
   "hamish@ziracle.com",
   "janethomelawson@gmail.com",
@@ -37,3 +38,21 @@ export const isAllowedDomain = (email: string) => {
 export const ALLOWED_EMAILS_BREVO_LIST_ID = {
   ac_uk: 5,
 };
+
+
+
+/**
+ * Extracts the local part of an email address (the part before the @).
+ * @param email The full email address string.
+ * @returns The local part of the email, or null if no @ symbol is found.
+ */
+export function getLocalPartFromEmail(email: string) {
+  if (typeof email !== 'string') {
+    return null;
+  }
+  const atIndex = email.indexOf('@');
+  if (atIndex === -1) {
+    return null;
+  }
+  return email.substring(0, atIndex);
+}

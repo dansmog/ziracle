@@ -1,4 +1,4 @@
-export default function Ranking({ rank }: { rank: string }) {
+export default function Ranking({ rank }: { rank: number | undefined }) {
   return (
     <section className="bg-z-navyblue w-full p-6 rounded-[20px] flex flex-col gap-10">
       <div className="flex flex-col gap-3 w-full justify-center items-center">
