@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Epilogue, Inter } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
-import { generateSEO } from "@/lib/seo";
 
 const epilogueSans = Epilogue({
   variable: "--font-epilogue",

@@ -20,7 +20,7 @@ import WaitlistUser from "@/images/waitlistUsers.png";
 
 import { FeatureProps } from "@/types";
 import { featuresData, isAllowedDomain, WHITELIST } from "@/utils";
-import { apiRoutes, createWaitlist, CustomError } from "@/utils/httpHelper";
+import { apiRoutes, createWaitlist } from "@/utils/httpHelper";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
@@ -89,6 +89,8 @@ export default function Home() {
       toast.error("We are sorry, we are exclusive to students alone");
     }
   };
+
+  console.log({isError})
 
   return (
     <section className="w-full min-h-screen flex flex-col">
