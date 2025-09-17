@@ -46,7 +46,6 @@ export default function ReferralCircle({
 
   const referralId = params.referralCode as string;
 
-
   return (
     <section>
       <div className="flex md:hidden gap-4 mb-6">
@@ -152,64 +151,76 @@ export default function ReferralCircle({
             </h1>
 
             <div className="">
-              {leaderboard?.map((item, index) => {
-                const RankComponent = top3[index];
-                const email = getLocalPartFromEmail(item?.email);
-                const badge = `${email?.charAt(0)}${email?.charAt(1)}`;
+              {leaderboard && leaderboard.length > 0 ? (
+                leaderboard.map((item, index) => {
+                  const RankComponent = top3[index];
+                  const email = getLocalPartFromEmail(item?.email);
+                  const badge = `${email?.charAt(0)}${email?.charAt(1)}`;
 
-                return (
-                  <div
-                    className="w-full py-1 flex items-center justify-between border-b-[0.5px] border-[#6A40D5]"
-                    key={index}
-                  >
+                  return (
                     <div
-                      className={`w-full flex items-center justify-between py-1 px-6 ${
-                        item?.referral_code === referralId
-                          ? "bg-[#C09FFF66] rounded-full"
-                          : ""
-                      }`}
+                      className="w-full py-1 flex items-center justify-between border-b-[0.5px] border-[#6A40D5]"
+                      key={index}
                     >
-                      <div className="flex items-center gap-2 md:gap-4">
-                        {index < 3 && RankComponent ? (
-                          <div className="w-6 h-6 md:w-[30px] md:h-[30px] relative">
-                            <Image
-                              src={RankComponent}
-                              alt={`Rank ${item.rank} icon`}
-                              layout="fill"
-                              objectFit="contain"
-                            />
-                          </div>
-                        ) : (
-                          <span className="flex items-center justify-center w-[24px] h-[24px] md:w-[30px] md:h-[30px] rounded-full bg-[#6A40D5] text-sm md:text-base font-z-inter font-bold text-white">
-                            {item.rank}
-                          </span>
-                        )}
-                        <div className="flex items-center gap-2">
-                          <span className="flex w-[30px] h-[30px] md:w-[42px] uppercase shrink-0 md:h-[42px] text-white font-z-openSauceSans text-sm md:text-xl justify-center items-center rounded-full bg-[#6A40D5]">
-                            {badge}
-                          </span>
-                          <div className="flex flex-col">
-                            <h1 className="text-xs font-z-inter">
-                              {item?.email}
-                            </h1>
-                            <span className="text-[#3E3E3E80] text-[10px] font-z-inter">
-                              {item?.direct_invites} Connections
+                      <div
+                        className={`w-full flex items-center justify-between py-1 px-6 ${
+                          item?.referral_code === referralId
+                            ? "bg-[#C09FFF66] rounded-full"
+                            : ""
+                        }`}
+                      >
+                        <div className="flex items-center gap-2 md:gap-4">
+                          {index < 3 && RankComponent ? (
+                            <div className="w-6 h-6 md:w-[30px] md:h-[30px] relative">
+                              <Image
+                                src={RankComponent}
+                                alt={`Rank ${item.rank} icon`}
+                                fill
+                                className="object-contain"
+                              />
+                            </div>
+                          ) : (
+                            <span className="flex items-center justify-center w-[24px] h-[24px] md:w-[30px] md:h-[30px] rounded-full bg-[#6A40D5] text-sm md:text-base font-z-inter font-bold text-white">
+                              {item.rank}
                             </span>
+                          )}
+                          <div className="flex items-center gap-2">
+                            <span className="flex w-[30px] h-[30px] md:w-[42px] uppercase shrink-0 md:h-[42px] text-white font-z-openSauceSans text-sm md:text-xl justify-center items-center rounded-full bg-[#6A40D5]">
+                              {badge}
+                            </span>
+                            <div className="flex flex-col">
+                              <h1 className="text-xs font-z-inter">
+                                {item?.email}
+                              </h1>
+                              <span className="text-[#3E3E3E80] text-[10px] font-z-inter">
+                                {item?.direct_invites} Connections
+                              </span>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div className="flex flex-col gap-0 right-align text-right">
-                        <h6 className="font-z-inter text-sm font-bold text-[#1F0E5B]">
-                          {item?.total_network}
-                        </h6>
-                        <span className="font-z-inter text-[10px] text-[#3E3E3E80]">
-                          Total circle number
-                        </span>
+                        <div className="flex flex-col gap-0 text-right">
+                          <h6 className="font-z-inter text-sm font-bold text-[#1F0E5B]">
+                            {item?.total_network}
+                          </h6>
+                          <span className="font-z-inter text-[10px] text-[#3E3E3E80]">
+                            Total circle number
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })
+              ) : (
+                <div className="py-10 flex flex-col items-center justify-center text-center">
+                  <h1 className="text-lg text-center font-z-openSauceSans tracking-tighter font-semibold text-[#1F0E5B]">
+                    No leaders yet.
+                  </h1>
+                  <p className="mt-2 text-sm text-center text-gray-600 max-w-sm mx-auto">
+                    Be the first to climb the leaderboard and set the pace!{" "}
+                    <br /> Share your Ziracle link with friends.
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </div>
