@@ -69,8 +69,7 @@ export default function HomePage({ code }: { code?: string }) {
   };
   //this would be switch for tanstack-query
   const onSubmit = async (data: dataProps) => {
-    console.log({ data, code });
-    //check email if it's part of whitelist or accepted email
+
     if (WHITELIST.includes(data?.email) || isAllowedDomain(data?.email)) {
       try {
         setIsLoading(true);
@@ -83,8 +82,17 @@ export default function HomePage({ code }: { code?: string }) {
           (data = { ...data, referral_code })
         );
         setIsLoading(false);
+        console.log('result', result);
+        if(result.data?.isRedirect){
+          const code = result?.data?.data && result?.data?.data?.referral_code;
+          toast.info("You already in, redirecting to your page in 5secs")
+          setTimeout(() => {
+            router.push(`/thank-you/${code}/invite`)
+          }, 1000)
+        }
+
         toast.success(result?.message);
-        console.log({ result });
+        
 
         const newReferralCode = result?.data?.data?.referral_code;
 
@@ -98,6 +106,7 @@ export default function HomePage({ code }: { code?: string }) {
         setIsLoading(false);
         setIsError(true);
         if (error instanceof Error) {
+          console.log("i ma here ")
           toast.error(error.message);
         } else {
           toast.error("An unknown error occurred.");

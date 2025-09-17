@@ -7,7 +7,8 @@ export async function getUserByEmail(email: string) {
     const { data, error } = await supabase
       .from("users")
       .select("email, referral_code")
-      .eq("email", email);
+      .eq("email", email)
+      .single()
 
     if (error) {
       if (error.code === "PGRST116") {

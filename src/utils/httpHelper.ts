@@ -31,13 +31,16 @@ export interface UserData {
 
 interface ApiResponseData {
   success: boolean;
-  data: UserData
+  data: UserData;
+  isRedirect?: boolean,
+
 }
 
 interface SuccessResponse {
   success: boolean;
   message: string;
   data?: ApiResponseData;
+  isRedirect?: boolean
 }
 
 

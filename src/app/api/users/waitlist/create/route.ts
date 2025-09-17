@@ -21,18 +21,15 @@ export async function POST(request: Request) {
 
     const existingUser = await getUserByEmail(email);
 
-    if (
-      existingUser.success &&
-      existingUser.data &&
-      existingUser.data.length > 0
-    ) {
+    if (existingUser.success && existingUser.data) {
       return NextResponse.json(
         {
           success: false,
           message: "Your email already exist",
           data: existingUser,
+          isRedirect: true,
         },
-        { status: 409 }
+        { status: 200 }
       );
     }
 
@@ -82,11 +79,10 @@ export async function POST(request: Request) {
       { status: 500 }
     );
   } catch (error) {
-    console.log("error", error)
+    console.log("error", error);
     return NextResponse.json(
       { success: false, message: "Internal Server Error." },
       { status: 500 }
     );
   }
 }
-

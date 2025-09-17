@@ -50,7 +50,7 @@ export default function InviteFriends({ code }: { code: string }) {
         </div>
         <div className="flex flex-col">
           <p className="text-sm font-normal font-z-inter">
-            Every friend you invite creates ripples of tokens. The bigger your
+            Every friend you invite creates ripples of points. The bigger your
             circle, the more you earn.
           </p>
         </div>

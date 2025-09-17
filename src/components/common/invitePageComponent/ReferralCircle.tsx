@@ -109,9 +109,9 @@ export default function ReferralCircle({
                 <span className="text-[11px] font-medium font-z-inter tracking-tighter text-[#1F0E5B]">
                   Inner Circle
                 </span>
-                <span className="text-[#1F0E5B] text-[8px] font-z-inter tracking-tighter">
+                {/* <span className="text-[#1F0E5B] text-[8px] font-z-inter tracking-tighter">
                   Earn 2x ZAPs
-                </span>
+                </span> */}
               </div>
             </div>
 
@@ -121,9 +121,9 @@ export default function ReferralCircle({
                 <span className="text-[11px] font-medium font-z-inter tracking-tighter text-[#1F0E5B]">
                   Mid Circle
                 </span>
-                <span className="text-[#1F0E5B] text-[8px] font-z-inter tracking-tighter">
+                {/* <span className="text-[#1F0E5B] text-[8px] font-z-inter tracking-tighter">
                   Earn 1.5x ZAPs
-                </span>
+                </span> */}
               </div>
             </div>
 
@@ -133,9 +133,9 @@ export default function ReferralCircle({
                 <span className="text-[11px] font-medium font-z-inter tracking-tighter text-[#1F0E5B]">
                   Outer Circle
                 </span>
-                <span className="text-[#1F0E5B] text-[8px] font-z-inter tracking-tighter">
+                {/* <span className="text-[#1F0E5B] text-[8px] font-z-inter tracking-tighter">
                   Earn 1.2x ZAPs
-                </span>
+                </span> */}
               </div>
             </div>
           </div>

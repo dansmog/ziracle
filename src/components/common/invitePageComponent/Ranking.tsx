@@ -13,12 +13,12 @@ export default function Ranking({ rank }: { rank: number | undefined }) {
         <p className="font-z-epilogue font-normal text-sm tracking-tighter max-w-2xl">
           We’re building a platform where users get rewarded for growing the
           community. Start early and grow your Circles — every time someone in
-          your Circle spends, a Ripple of Zaps flows back to you. The more
-          people you connect, the more Zaps you’ll earn.
+          your Circle spends, a Ripple of Zaps flows back to you.
         </p>
         <p className="font-z-epilogue font-normal text-sm tracking-tighter max-w-2xl">
-          Each person can only join one Circle — once they’re in, they’re in.
-          Invite your friends early so the Ripple flows back to you.
+          The more people you connect, the more Zaps you’ll earn. Each person
+          can only join one Circle — once they’re in, they’re in. Invite your
+          friends early so the Ripple flows back to you.
         </p>
         <p className="font-z-epilogue font-normal text-sm tracking-tighter max-w-2xl">
           Zaps can be redeemed for coffees and lunches soon, and over time for

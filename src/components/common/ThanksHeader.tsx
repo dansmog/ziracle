@@ -80,20 +80,39 @@ const HeaderNavigation = () => {
         const href = `/thank-you/${referralId}/${btn.section}`;
         const isActive = pathname === href;
 
-        return (
-          <Link
-            key={btn.section}
-            href={href}
-            className={`flex items-center  gap-2 px-4 py-[3.5px] rounded-full font-medium font-z-inter transition-colors
-              ${
-                isActive
-                  ? "bg-[#1F0E5B] text-[#FDFD80]"
-                  : "bg-white text-[#6A40D5] border-[#E5E5E5] border-[1px]"
+        const baseClasses =
+          "flex items-center gap-2 px-4 py-[3.5px] rounded-full font-medium font-z-inter transition-colors";
+        const activeClasses = "bg-[#1F0E5B] text-[#FDFD80]";
+        const inactiveClasses =
+          "bg-white text-[#6A40D5] border-[#E5E5E5] border-[1px]";
+
+        // Only Invite should be clickable
+        if (btn.section === "invite") {
+          return (
+            <Link
+              key={btn.section}
+              href={href}
+              className={`${baseClasses} ${
+                isActive ? activeClasses : inactiveClasses
               }`}
+            >
+              <Image src={btn.icon} alt={btn.label} width={20} height={20} />
+              <span>{btn.label}</span>
+            </Link>
+          );
+        }
+
+        // Render as non-clickable div
+        return (
+          <div
+            key={btn.section}
+            className={`${baseClasses} ${
+              isActive ? activeClasses : inactiveClasses
+            } cursor-not-allowed`}
           >
             <Image src={btn.icon} alt={btn.label} width={20} height={20} />
             <span>{btn.label}</span>
-          </Link>
+          </div>
         );
       })}
     </div>

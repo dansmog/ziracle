@@ -23,6 +23,23 @@ export const metadata: Metadata = {
   title: "Unlocking Edinburgh Student Discounts",
   description: `Find the best spots. Unlock student discounts. Earn points — and free
           lunches — by inviting friends.`,
+  openGraph: {
+    title: "Unlocking Edinburgh Student Discounts",
+    description:
+      "Find the best spots. Unlock student discounts. Earn points — and free lunches — by inviting friends.",
+    url: "https://www.ziracle.com",
+    siteName: "Ziracle",
+    images: [
+      {
+        url: "https://ziracle.com/OGImage.png", // must be absolute URL
+        width: 1200,
+        height: 630,
+        alt: "Unlocking Edinburgh Student Discounts",
+      },
+    ],
+    locale: "en_GB",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
