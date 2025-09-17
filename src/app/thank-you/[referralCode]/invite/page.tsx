@@ -39,6 +39,13 @@ export interface UserData {
     total_users: number;
     total_network: number;
   };
+  leaderboard: {
+    direct_invites: number;
+    email: string;
+    first_name?: string;
+    last_name?: string;
+    total_network: number;
+  }[];
   total_network: number;
   direct_invites: number;
   direct_referrals: number;
@@ -88,6 +95,7 @@ export default function ThankYouPage() {
     );
 
   const formattedDate = dayjs(user?.created_at).format("MMM D");
+  const name = getLocalPartFromEmail(user?.email ?? "");
 
   return (
     <section className="w-full">
@@ -99,10 +107,7 @@ export default function ThankYouPage() {
           </h1>
         </section>
         <section className="flex flex-col gap-6 mb-14">
-          <ProfileHead
-            name={getLocalPartFromEmail(user?.email ?? "")}
-            email={user?.email ?? ""}
-          />
+          <ProfileHead name={name} email={user?.email ?? ""} />
           <Congratulations />
           <ReferralSteps />
           <InviteFriends code={user?.referral_code ?? ""} />
@@ -164,7 +169,10 @@ export default function ThankYouPage() {
             </div>
           </section>
           {user && user.circle ? (
-            <ReferralCircle circle={user.circle} />
+            <ReferralCircle
+              circle={user.circle}
+              leaderboard={user?.leaderboard}
+            />
           ) : (
             <p>Loading your referral data...</p>
           )}

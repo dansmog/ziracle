@@ -7,12 +7,13 @@ export default function ProfileHead({
   name,
 }: {
   email: string | null;
-  name: string;
+  name: string | null;
 }) {
+  const userName = name ? name : ""
   return (
     <section className="flex items-center gap-4">
       <span className="w-[96px] bg-[#F5F5F5] border-[1px] border-[#E5E5E5] font-z-epilogue font-medium text-2xl md:text-4xl h-[96px] rounded-full flex justify-center items-center">
-        {name.charAt(0) + name.charAt(1)}
+        {userName.charAt(0) + userName.charAt(1)}
       </span>
       <div className="flex flex-col">
         <h1 className="text-[26px] font-z-inter font-medium tracking-tighter">

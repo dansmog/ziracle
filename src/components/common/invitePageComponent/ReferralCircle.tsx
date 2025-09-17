@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { useParams } from "next/navigation";
+
 import lightCircle from "@/images/light_circle.svg";
 import darkCircle from "@/images/dark_circle.svg";
 import Top20Trophy from "@/images/Top20Trophy.svg";
@@ -9,6 +11,7 @@ import Top20Trophy from "@/images/Top20Trophy.svg";
 import Top1 from "@/images/top1.svg";
 import Top2 from "@/images/top2.svg";
 import Top3 from "@/images/top3.svg";
+import { getLocalPartFromEmail } from "@/utils";
 
 const tabs = ["your circle", "top 20"];
 
@@ -20,10 +23,30 @@ interface circleProps {
   outer_circle: number;
 }
 
-export default function ReferralCircle({ circle }: { circle: circleProps }) {
+interface leaderboardProps {
+  direct_invites: number;
+  email: string;
+  first_name?: string;
+  last_name?: string;
+  total_network: number;
+  referral_code?: string;
+  rank?: number;
+}
+
+export default function ReferralCircle({
+  circle,
+  leaderboard,
+}: {
+  circle: circleProps;
+  leaderboard: leaderboardProps[];
+}) {
   const [activeTab, setActiveTab] = useState(tabs[0]);
 
-  console.log({ activeTab });
+  console.log({ leaderboard });
+
+  const params = useParams();
+
+  const referralId = params.referralCode as string;
 
   const leaderboardData = [
     {
@@ -168,6 +191,8 @@ export default function ReferralCircle({ circle }: { circle: circleProps }) {
     },
   ];
 
+
+
   return (
     <section>
       <div className="flex md:hidden gap-4 mb-6">
@@ -262,7 +287,6 @@ export default function ReferralCircle({ circle }: { circle: circleProps }) {
           </div>
         </div>
 
-        {/* 'top 20' content div */}
         <div
           className={`w-full h-[390px] pb-2 bg-[#f5f5f5] border-[1px] border-[#E5E5E5] p-[21px] rounded-[20px] overflow-y-scroll
           ${activeTab !== "top 20" ? "hidden md:flex" : ""}`}
@@ -274,8 +298,10 @@ export default function ReferralCircle({ circle }: { circle: circleProps }) {
             </h1>
 
             <div className="">
-              {leaderboardData?.map((item, index) => {
+              {leaderboard?.map((item, index) => {
                 const RankComponent = top3[index];
+                const email = getLocalPartFromEmail(item?.email);
+                const badge = `${email?.charAt(0)}${email?.charAt(1)}`;
 
                 return (
                   <div
@@ -284,7 +310,7 @@ export default function ReferralCircle({ circle }: { circle: circleProps }) {
                   >
                     <div
                       className={`w-full flex items-center justify-between py-1 px-6 ${
-                        item?.referral_code === "9ajq817a"
+                        item?.referral_code === referralId
                           ? "bg-[#C09FFF66] rounded-full"
                           : ""
                       }`}
@@ -305,22 +331,22 @@ export default function ReferralCircle({ circle }: { circle: circleProps }) {
                           </span>
                         )}
                         <div className="flex items-center gap-2">
-                          <span className="flex w-[30px] h-[30px] md:w-[42px] shrink-0 md:h-[42px] text-white font-z-openSauceSans text-sm md:text-xl justify-center items-center rounded-full bg-[#6A40D5]">
-                            HF
+                          <span className="flex w-[30px] h-[30px] md:w-[42px] uppercase shrink-0 md:h-[42px] text-white font-z-openSauceSans text-sm md:text-xl justify-center items-center rounded-full bg-[#6A40D5]">
+                            {badge}
                           </span>
                           <div className="flex flex-col">
                             <h1 className="text-xs font-z-inter">
-                              Howard Fisher
+                              {item?.email}
                             </h1>
                             <span className="text-[#3E3E3E80] text-[10px] font-z-inter">
-                              12 Connections
+                              {item?.direct_invites} Connections
                             </span>
                           </div>
                         </div>
                       </div>
                       <div className="flex flex-col gap-0 right-align text-right">
                         <h6 className="font-z-inter text-sm font-bold text-[#1F0E5B]">
-                          12,500
+                          {item?.total_network}
                         </h6>
                         <span className="font-z-inter text-[10px] text-[#3E3E3E80]">
                           Total circle number
