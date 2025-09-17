@@ -1,4 +1,25 @@
-import { getUserById, getUserCircles, insertReferralCircle } from "@/lib/supabase/queries";
+import {
+  getUserById,
+  getUserCircles,
+  insertReferralCircle,
+} from "@/lib/supabase/queries";
+
+interface CircleCount {
+  inner: number;
+  mid: number;
+  outer: number;
+  full: number;
+}
+
+interface CircleData {
+  circle_level: number;
+  // ... other properties of the circle object if any
+}
+
+interface CirclesResult {
+  data: CircleData[] | null;
+  // ... other properties of circlesResult
+}
 
 // Chain Walker - walks backwards through referral chain
 export async function getReferralChain(
@@ -65,14 +86,14 @@ export async function getCircleCounts(userId: number) {
       return { inner: 0, mid: 0, outer: 0, full: 0 };
     }
 
-    const counts = {
+    const counts: CircleCount = {
       inner: 0,
       mid: 0,
       outer: 0,
       full: 0,
     };
 
-    circlesResult.data?.forEach((circle: any) => {
+    circlesResult.data?.forEach((circle) => {
       switch (circle.circle_level) {
         case 1:
           counts.inner++;

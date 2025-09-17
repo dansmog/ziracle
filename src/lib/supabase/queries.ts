@@ -86,6 +86,7 @@ export async function getUserByReferralCode(referralCode: string) {
 
     return { success: true, data };
   } catch (error) {
+    console.error("Error in getLeaderboard:", error);
     return { success: false, error: "Failed to find user by referral code" };
   }
 }
@@ -539,6 +540,14 @@ export async function getUserByReferralCodeWithCircles(referralCode: string) {
 //   }
 // }
 
+interface allUsersProps {
+  id: number;
+  email: string;
+  first_name?: string;
+  last_name?: string;
+  referral_code: string;
+}
+
 export async function getLeaderboard(limit: number = 20) {
   const supabase = await createClient();
   try {
@@ -556,7 +565,7 @@ export async function getLeaderboard(limit: number = 20) {
     }
 
     // Calculate stats for each user
-    const leaderboardPromises = allUsers.map(async (user: any) => {
+    const leaderboardPromises = allUsers.map(async (user: allUsersProps) => {
       // Get circle counts for this user
       const circleCountsResult = await getUserCircleCounts(user.id);
       const circleCounts =

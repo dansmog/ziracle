@@ -81,7 +81,7 @@ export default function ThankYouPage() {
 
     fetchData();
   }, []);
-
+  console.log({ error });
   if (isLoading)
     return (
       <div className="w-full flex flex-col h-screen justify-center items-center gap-1">

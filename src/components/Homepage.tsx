@@ -3,11 +3,8 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
 import {
-  animate,
   cubicBezier,
   motion,
-  useMotionValue,
-  useTransform,
 } from "motion/react";
 import { Toaster, toast } from "sonner";
 import { useRouter } from "next/navigation";
@@ -17,7 +14,6 @@ import AppButton from "@/components/ui/AppButton";
 import AppInput from "@/components/ui/AppInput";
 import ThemeLayout from "@/components/common/layouts/ThemeLayout";
 
-import WaitlistUser from "@/images/waitlistUsers.png";
 
 import { FeatureProps } from "@/types";
 import { featuresData, isAllowedDomain, WHITELIST } from "@/utils";
@@ -189,23 +185,23 @@ export default function HomePage({ code }: { code?: string }) {
   );
 }
 
-const SocialProof = () => {
-  const count = useMotionValue(0);
-  const rounded = useTransform(() => Math.round(count.get()));
+// const SocialProof = () => {
+//   const count = useMotionValue(0);
+//   const rounded = useTransform(() => Math.round(count.get()));
 
-  useEffect(() => {
-    const controls = animate(count, 20, { duration: 5 });
-    return () => controls.stop();
-  }, []);
-  return (
-    <div className="flex items-center gap-1 mt-6">
-      <Image src={WaitlistUser} height={24} width={48} alt="waitlist users" />
-      <span className="text-xs font-z-epilogue text-z-navyblue font-normal">
-        <motion.span>{rounded}</motion.span>k+ people already on the waitlist
-      </span>
-    </div>
-  );
-};
+//   useEffect(() => {
+//     const controls = animate(count, 20, { duration: 5 });
+//     return () => controls.stop();
+//   }, []);
+//   return (
+//     <div className="flex items-center gap-1 mt-6">
+//       <Image src={WaitlistUser} height={24} width={48} alt="waitlist users" />
+//       <span className="text-xs font-z-epilogue text-z-navyblue font-normal">
+//         <motion.span>{rounded}</motion.span>k+ people already on the waitlist
+//       </span>
+//     </div>
+//   );
+// };
 
 const FeatureCard = ({
   img,
