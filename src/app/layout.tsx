@@ -23,6 +23,11 @@ export const metadata: Metadata = {
   title: "Unlocking Edinburgh Student Discounts",
   description: `Find the best spots. Unlock student discounts. Earn points — and free
           lunches — by inviting friends.`,
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
   openGraph: {
     title: "Unlocking Edinburgh Student Discounts",
     description:
