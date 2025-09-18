@@ -1,4 +1,20 @@
-export async function createContact(email: string, listIds: number[]) {
+export async function createContact(
+  email: string,
+  listIds: number[],
+  customAttributes: {
+    thankYouUrl?: string;
+    shareUrl?: string;
+  } = {}
+) {
+  const attributes: Record<string, unknown> = {};
+
+  if (customAttributes.thankYouUrl) {
+    attributes.THANK_YOU_URL = customAttributes.thankYouUrl;
+  }
+  if (customAttributes.shareUrl) {
+    attributes.SHARE_URL = customAttributes.shareUrl;
+  }
+
   const response = await fetch("https://api.brevo.com/v3/contacts", {
     method: "POST",
     headers: {
@@ -8,6 +24,7 @@ export async function createContact(email: string, listIds: number[]) {
     body: JSON.stringify({
       email,
       listIds,
+      attributes,
     }),
   });
   if (!response.ok) {

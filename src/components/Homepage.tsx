@@ -2,18 +2,14 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
-import {
-  cubicBezier,
-  motion,
-} from "motion/react";
+import { cubicBezier, motion } from "motion/react";
 import { Toaster, toast } from "sonner";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 
 import Header from "@/components/common/Header";
 import AppButton from "@/components/ui/AppButton";
 import AppInput from "@/components/ui/AppInput";
 import ThemeLayout from "@/components/common/layouts/ThemeLayout";
-
 
 import { FeatureProps } from "@/types";
 import { featuresData, isAllowedDomain, WHITELIST } from "@/utils";
@@ -22,7 +18,7 @@ import { apiRoutes, createWaitlist } from "@/utils/httpHelper";
 export default function HomePage({ code }: { code?: string }) {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const router = useRouter();
+  // const router = useRouter();
 
   const {
     handleSubmit,
@@ -69,7 +65,6 @@ export default function HomePage({ code }: { code?: string }) {
   };
   //this would be switch for tanstack-query
   const onSubmit = async (data: dataProps) => {
-
     if (WHITELIST.includes(data?.email) || isAllowedDomain(data?.email)) {
       try {
         setIsLoading(true);
@@ -82,31 +77,30 @@ export default function HomePage({ code }: { code?: string }) {
           (data = { ...data, referral_code })
         );
         setIsLoading(false);
-        console.log('result', result);
-        if(result.data?.isRedirect){
-          const code = result?.data?.data && result?.data?.data?.referral_code;
-          toast.info("You already in, redirecting to your page in 5secs")
-          setTimeout(() => {
-            router.push(`/thank-you/${code}/invite`)
-          }, 1000)
-        }
+        console.log("result", result);
+        // if(result.data?.isRedirect){
+        //   const code = result?.data?.data && result?.data?.data?.referral_code;
+        //   toast.info("You already in, redirecting to your page in 5secs")
+        //   setTimeout(() => {
+        //     router.push(`/thank-you/${code}/invite`)
+        //   }, 1000)
+        // }
 
         toast.success(result?.message);
-        
 
-        const newReferralCode = result?.data?.data?.referral_code;
+        // const newReferralCode = result?.data?.data?.referral_code;
 
-        if (newReferralCode) {
-          router.push(`/thank-you/${newReferralCode}/invite`);
-        } else {
-          toast.error("Referral code not found in API response.");
-          router.push("/");
-        }
+        // if (newReferralCode) {
+        //   router.push(`/thank-you/${newReferralCode}/invite`);
+        // } else {
+        //   toast.error("Referral code not found in API response.");
+        //   router.push("/");
+        // }
       } catch (error: unknown) {
         setIsLoading(false);
         setIsError(true);
         if (error instanceof Error) {
-          console.log("i ma here ")
+          console.log("i ma here ");
           toast.error(error.message);
         } else {
           toast.error("An unknown error occurred.");

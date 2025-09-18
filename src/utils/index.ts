@@ -28,7 +28,7 @@ export const WHITELIST = [
   "juwonanthony+1@gmail.com",
   "juwonanthony+2@gmail.com",
   "juwonanthony+3@gmail.com",
-  "coursebuying+1@gmail.com",
+  "coursebuying+12@gmail.com",
   "adenikebamide782@gmail.com",
   "hamishalawson@gmail.com",
   "hamish@ziracle.com",

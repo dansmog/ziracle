@@ -3,14 +3,15 @@ import { createContact } from "@/lib/emails/brevo";
 import {
   createWaitlistUser,
   getUserByEmail,
-  getUserByReferralCode,
+  // getUserByReferralCode,
 } from "@/lib/supabase/queries";
 import { generateReferralCode } from "@/utils/generateReferralCode";
-import { buildReferralCircles } from "@/lib/referral/circleBuilder";
+// import { buildReferralCircles } from "@/lib/referral/circleBuilder";
 
 export async function POST(request: Request) {
   try {
-    const { email, referral_code } = await request.json();
+    //extract referral_code from the request, when we go back to referral code sharing
+    const { email } = await request.json();
 
     if (!email) {
       return NextResponse.json(
@@ -27,47 +28,54 @@ export async function POST(request: Request) {
           success: false,
           message: "Your email already exist",
           data: existingUser,
-          isRedirect: true,
+          isRedirect: false, //change this back to true when we go back to referral
         },
         { status: 200 }
       );
     }
 
     //validate referral code if provided
-    let referrer = null;
-    if (referral_code) {
-      const referrerResult = await getUserByReferralCode(referral_code);
-      if (!referrerResult.success) {
-        return NextResponse.json(
-          { success: false, message: "Invalid referral code" },
-          { status: 400 }
-        );
-      }
+    //turn this back on when we go back to referral sharing
+    // let referrer = null;
+    // if (referral_code) {
+    //   const referrerResult = await getUserByReferralCode(referral_code);
+    //   if (!referrerResult.success) {
+    //     return NextResponse.json(
+    //       { success: false, message: "Invalid referral code" },
+    //       { status: 400 }
+    //     );
+    //   }
 
-      referrer = referrerResult.data;
-    }
+    //   referrer = referrerResult.data;
+    // }
 
+    const newReferralCode = generateReferralCode();
     //logic for creating contact happens here
-    const brevoResponse = await createContact(email, [5]);
-    //logic for waitlist happens here
+    const brevoResponse = await createContact(email, [5], {
+      thankYouUrl: `https://ziracle.com/thank-you/${newReferralCode}/invite`,
+      shareUrl: `https://ziracle.com/ref/${newReferralCode}`,
+    });
+    //logic for waitlist happens heres
     if (brevoResponse?.id) {
-      const referral_code = generateReferralCode();
+      console.log("the res", brevoResponse)
       const payload = {
         email,
-        referral_code,
-        referred_by: referrer?.id || null,
+        referral_code: newReferralCode,
+        referred_by: null,
+        // referred_by: referrer?.id || null,
       };
 
       const waitlistResponse = await createWaitlistUser(payload);
 
-      if (waitlistResponse.success && referrer) {
-        await buildReferralCircles(waitlistResponse.data.id, referrer.id);
-      }
+      //turn this back on when we go back to referral code sharing
+      // if (waitlistResponse.success && referrer) {
+      //   await buildReferralCircles(waitlistResponse.data.id, referrer.id);
+      // }
 
       return NextResponse.json(
         {
           success: true,
-          message: "You are now part of Ziracle, please check your email",
+          message: "You are now part of Ziracle",
           data: waitlistResponse,
         },
         { status: 200 }
